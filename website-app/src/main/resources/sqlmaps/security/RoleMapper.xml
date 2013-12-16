@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.website.mapper.security.RoleMapper">
+
+	<resultMap id="BaseResultMap" type="Role">
+		<id column="id" property="id" jdbcType="SMALLINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, code, description
+	</sql>
+	
+	<insert id="insert" parameterType="Role">
+		INSERT INTO ssm_role (
+			name, code, description
+		) VALUES (
+			#{name,jdbcType=VARCHAR},
+			#{code,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM ssm_role WHERE id = #{id,jdbcType=SMALLINT}
+	</delete>
+	
+	<update id="update" parameterType="Role">
+		UPDATE ssm_role SET 
+			name = #{name,jdbcType=VARCHAR},
+			description = #{description,jdbcType=VARCHAR}
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</update>
+	
+	<update id="updateSelective" parameterType="Role">
+		UPDATE ssm_role 
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</update>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="Integer">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM ssm_role
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</select>
+	
+	<select id="selectByCode" resultMap="BaseResultMap" parameterType="String">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM ssm_role
+		WHERE code = #{code,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByPage" parameterType="Role" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM ssm_role
+		<where>
+			<if test="search.code != null and search.code != ''">
+				code LIKE '%${search.code}%'
+			</if>
+			<if test="search.name != null and search.name != ''">
+				AND name = #{search.name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectAll" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT 
+			r.id, r.name, r.code, r.description 
+		FROM ssm_role r 
+		<if test="_parameter != null and _parameter > 0">
+			INNER JOIN ssm_relate_admin_role ar ON ar.role_id = r.id
+			AND ar.admin_id = #{_parameter,jdbcType=SMALLINT}
+		</if>
+		ORDER BY r.id DESC
+	</select>
+	
+	
+	<delete id="deleteRelatePermissions" parameterType="Integer">
+		DELETE FROM ssm_relate_role_permission WHERE role_id = #{roleId,jdbcType=SMALLINT}
+	</delete>
+	
+	<insert id="insertRelatePermissions" parameterType="Map">
+		INSERT INTO ssm_relate_role_permission(role_id, permission_id) VALUES
+		<foreach collection="permissionIds" item="permissionId" index="index">
+			<if test="index > 0">,</if>
+			(#{roleId,jdbcType=SMALLINT}, #{permissionId,jdbcType=SMALLINT})
+		</foreach>
+	</insert>
+	
+</mapper>

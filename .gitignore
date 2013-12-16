@@ -4,3 +4,14 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse Files #
+.classpath
+.project
+*.prefs
+website-app/.settings/*
+website-web/.settings/*
+
+# Compiler Files #
+website-app/target/*
+website-web/target/*

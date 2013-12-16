@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.website.mapper.security.PermissionMapper">
+	
+	<resultMap id="BaseResultMap" type="Permission">
+		<id column="id" property="id" jdbcType="SMALLINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, name, code, description
+	</sql>
+	
+	<insert id="insert" parameterType="Permission">
+		INSERT INTO ssm_permission (
+			name, code, description
+		) VALUES (
+			#{name,jdbcType=VARCHAR},
+			#{code,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM ssm_permission WHERE id = #{id,jdbcType=SMALLINT}
+	</delete>
+	
+	<update id="update" parameterType="Permission">
+		UPDATE ssm_permission SET 
+			name = #{name,jdbcType=VARCHAR},
+			description = #{description,jdbcType=VARCHAR}
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</update>
+	
+	<update id="updateSelective" parameterType="Permission">
+		UPDATE ssm_permission 
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</update>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="Integer">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM ssm_permission
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</select>
+	
+	<select id="selectByCode" resultMap="BaseResultMap" parameterType="String">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM ssm_permission
+		WHERE code = #{code,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByPage" parameterType="Permission" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM ssm_permission
+		<where>
+			<if test="search.code != null and search.code != ''">
+				code LIKE '%${search.code}%'
+			</if>
+			<if test="search.name != null and search.name != ''">
+				AND name = #{search.name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectAll" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT 
+			p.id, p.name, p.code, p.description 
+		FROM ssm_permission p 
+		<if test="_parameter != null and _parameter > 0">
+			INNER JOIN ssm_relate_role_permission rp ON rp.permission_id = p.id
+			AND rp.role_id = #{_parameter,jdbcType=SMALLINT}
+		</if>
+		ORDER BY p.id DESC
+	</select>
+	
+</mapper>

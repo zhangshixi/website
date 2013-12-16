@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/">
+
+	<excludes>
+		<pattern>/version</pattern>
+		<pattern>/error/*</pattern>
+		<pattern>/index</pattern>
+		<pattern>/frame/*</pattern>
+		<pattern>/easyui/*</pattern>
+		<pattern>/*/list</pattern>
+    </excludes>
+
+	<decorator name="website" page="views/layout/layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+</decorators>

@@ -1,0 +1,168 @@
+*{
+	font-size:12px;
+}
+html,body{
+	margin:0;
+	padding:0;
+}
+body{
+    font-family:verdana,helvetica,arial,sans-serif;
+	background:#fafafa;
+/* 	text-align:center; */
+}
+h2 {
+    font-size:22px;
+    font-weight:bold;
+    margin:0;
+    margin-bottom:15px;
+}
+h3{
+	font-size:20px;
+	font-weight:bold;
+	margin:12px 0;
+}
+h4{
+	font-size:16px;
+	font-weight:bold;
+	color:#CC0000;
+	margin:10px 0;
+}
+h5{
+	font-size:14px;
+	font-weight:bold;
+	color:#990000;
+	margin:5px 0;
+}
+textarea.html,textarea.js{
+	width:100%;
+	height:80px;
+	overflow:hidden;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+#header{
+	text-align:center;
+	background:#0081c2;
+	direction:ltr;
+}
+#header a{
+	font-size:14px;
+}
+#header-inner{
+	text-align:left;
+	margin:0 auto;
+	width:60%;
+	padding:10px 0;
+}
+#mainwrap{
+	text-align:center;
+	margin:0;
+}
+#content{
+	text-align:left;
+	width:100%;
+	margin:0 auto;
+	padding:0;
+	border:0;
+	background:#fff;
+}
+#content img{
+	margin:0;
+}
+#footer{
+	text-align:center;
+	background:#0081c2;
+	padding:8px;
+}
+#topmenu{
+	text-align:right;
+}
+#topmenu a{
+	display:inline-block;
+	padding:1px 3px;
+	text-decoration:none;
+	color:#fff;
+}
+#topmenu a:hover{
+	text-decoration:underline;
+}
+.demo-info{
+	background:#FFFEE6;
+	color:#8F5700;
+	padding:12px;
+}
+.demo-tip{
+	width:16px;
+	height:16px;
+	margin-right:8px;
+	float:left;
+	text-align: left;
+}
+a.download-link{
+	color:#0000ff;
+}
+
+.doc-table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.doc-table th,.doc-table td{
+	border:1px solid #8CACBB;
+	padding:0.3em 0.7em;
+}
+.doc-table th{
+	background:#eee;
+}
+.doc-table pre{
+	font-family:Verdana;
+	font-size:12px;
+	color:#006600;
+	background:#fafafa;
+	padding:5px;
+}
+
+.icon-base{
+	background:url('images/basic.png') no-repeat;
+}
+.icon-layout{
+	background:url('images/layout.png') no-repeat;
+}
+.icon-menu{
+	background:url('images/menu.png') no-repeat;
+}
+.icon-form{
+	background:url('images/form.png') no-repeat;
+}
+.icon-window{
+	background:url('images/window.png') no-repeat;
+}
+.icon-datagrid{
+	background:url('images/grid.png') no-repeat;
+}
+.icon-gears{
+	background:url('images/gears.png') no-repeat;
+}
+
+
+#fm{
+	margin:0;
+	padding:10px 30px;
+}
+.ftitle{
+	font-size:14px;
+	font-weight:bold;
+	padding:5px 0;
+	margin-bottom:10px;
+	border-bottom:1px solid #ccc;
+}
+.fitem{
+	margin-bottom:5px;
+}
+.fitem label{
+	display:inline-block;
+	width:80px;
+}
